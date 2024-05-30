@@ -10,18 +10,20 @@ To create a TLS certificate in GCP for use with the Kubernetes API Gateway, foll
 
   gcloud certificate-manager dns-authorizations create auth-test \
       --domain="ttest.disearch.ai"
+
 This command creates a DNS authorization for the specified domain.
 
 **Check DNS Authorization Details**:
 
   gcloud certificate-manager dns-authorizations describe auth-test
+
 Use this command to check the CNAME for authorization, which will be required later.
 
 **Certificate Creation**:
 
-
   gcloud certificate-manager certificates create gateway-test \
     --domains=ttest.disearch.ai --dns-authorizations=auth-test
+
 Create a TLS certificate named "gateway-test" for the domain "ttest.disearch.ai".
 
 **Map and Map Entries Creation**:
@@ -32,13 +34,15 @@ Create a TLS certificate named "gateway-test" for the domain "ttest.disearch.ai"
       --map="gateway-test" \
       --certificates="gateway-test" \
       --hostname="ttest.disearch.ai"
+
 Create maps and map entries to associate the certificate with the domain.
 
 **Update DNS Records**:
 Update the DNS records in GCP Cloud DNS with the CNAME and DATA details obtained earlier. 
 
   gcloud certificate-manager dns-authorizations describe auth-test
-  You can get record with this command and add it to cloud dns accordingly.
+
+You can get record with this command and add it to cloud dns accordingly.
 
 **Attach Certificate to Gateway**:
 Update the Gateway resource YAML file with the annotation specifying the certificate name and the hostname.
