@@ -1,0 +1,50 @@
+#apiVersion: networking.gke.io/v1
+#kind: ManagedCertificate
+#metadata:
+#  name: managed-cert
+#  namespace: infra
+#spec:
+#  domains:
+#  - ttestt.disearch.ai
+
+
+---
+
+kind: Gateway
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: external-https
+  namespace: infra
+  annotations:
+          #networking.gke.io/managed-certificates: managed-cert
+   networking.gke.io/certmap: gateway-test
+spec:
+  gatewayClassName: gke-l7-global-external-managed
+  listeners:
+  - name: http
+    protocol: HTTP
+    port: 80
+    hostname: "*.disearch.ai"
+    allowedRoutes:
+            # kinds:
+            # - kind: HTTPRoute
+      namespaces:
+        from: "All"
+  - name: https
+    protocol: HTTPS
+    port: 443
+    hostname: "*.disearch.ai"
+    allowedRoutes:
+            #kinds:
+            #- kind: HTTPRoute      
+      namespaces:
+        from: "All"
+        #tls:
+        # mode: Terminate
+        #  certificateRefs:
+        #   - name: selfsigned-cert-tls
+        # kind: Secret
+        # group: "" 
+        #addresses:
+        #- type: NamedAddress
+        #value: IP_ADDRESS
