@@ -48,13 +48,13 @@ You can get record with this command and add it to cloud dns accordingly.
 Update the Gateway resource YAML file with the annotation specifying the certificate name and the hostname.
 
 yaml
-metadata:
+''"metadata:
   annotations:
     networking.gke.io/certmap: gateway-test
 spec:
   listeners:
   - name: https
-    hostname: "*.disearch.ai"
+    hostname: "*.disearch.ai"''
 
 **Deployment**:
 Apply the updated deployment files, including the Deployment, Service, HTTPRoute, Gateway, and ReferenceGrant.
