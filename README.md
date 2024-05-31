@@ -64,5 +64,11 @@ After completing the deployment, browse to the configured domain in a web browse
 
 By following these steps, you can securely configure and deploy Kubernetes API Gateway with TLS certificate encryption in Google Cloud Platform.
 
+**for deleting certificate you need to delete the map first, following commands are helpful for doing this**
+
+**gcloud certificate-manager maps list**
+**gcloud certificate-manager maps entries delete gateway-test --map=gateway-tessst**
+**gcloud certificate-manager certificates delete gateway-tessst**
+
 
 
